@@ -26,3 +26,9 @@ ORDER BY COUNT(studentcourse.courseid) desc, course.name;
 select COUNT(distinct studentid) AS Students, EXTRACT(YEAR FROM startdate) AS Year 
 FROM studentcourse
 GROUP BY EXTRACT(YEAR FROM startdate);
+
+SELECT studentcourse.startdate AS 'StartDate', COUNT(DISTINCT studentcourse.studentid) AS 'Total Number of Students'
+FROM studentcourse
+WHERE MONTH(studentcourse.startdate) = 8
+GROUP BY StartDate
+ORDER BY StartDate, 'Total Number of Students';
