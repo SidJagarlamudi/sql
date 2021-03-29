@@ -53,3 +53,9 @@ Select course.name, ROUND(AVG(studentcourse.progress),1) as
 from course left join studentcourse ON studentcourse.courseid = course.id
 group by course.name
 Order by AverageProgress DESC, course.name; 69.8
+
+Select course.name AS 'Name', ROUND(AVG(studentcourse.progress),1) as 'AverageProgress'
+from course left join studentcourse ON studentcourse.courseid = course.id
+Group BY Name
+Order by AverageProgress desc
+LIMIT 1;
