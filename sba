@@ -75,3 +75,21 @@ GROUP BY faculty.firstname, faculty.lastname
 HAVING AverageProgress >= 62.82
 ORDER BY AverageProgress DESC, faculty.firstname, faculty.lastname;
 
+SELECT student.firstname, student.lastname, (CASE
+WHEN MIN(progress)<40 THEN 'F'
+WHEN MIN(progress)<50 THEN 'D'
+WHEN MIN(progress)<60 THEN 'C'
+WHEN MIN(progress)<70 THEN 'B'
+WHEN MIN(progress)>=70 THEN 'A'
+END) AS MinimumGrade, (CASE
+WHEN MAX(progress)<40 THEN 'F'
+WHEN MAX(progress)<50 THEN 'D'
+WHEN MAX(progress)<60 THEN 'C'
+WHEN MAX(progress)<70 THEN 'B'
+WHEN MAX(progress)>=70 THEN 'A'
+END) AS MaximumGrade
+FROM student left join studentcourse ON studentcourse.studentid = student.id
+Group by student.firstname, student.lastname
+Order by MinimumGrade desc, MaximumGrade desc, student.firstname, student.lastname
+
+
