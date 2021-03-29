@@ -67,3 +67,11 @@ left join studentcourse ON studentcourse.courseid = facultycourse.courseid
 Group by firstname
 Order by AverageProgress desc, firstname, lastname;
 
+SELECT faculty.firstname, faculty.lastname, ROUND(AVG(studentcourse.progress),1) AS 'AverageProgress'
+FROM faculty
+LEFT JOIN facultycourse ON facultycourse.facultyid = faculty.id
+LEFT JOIN studentcourse ON studentcourse.courseid = facultycourse.courseid
+GROUP BY faculty.firstname, faculty.lastname
+HAVING AverageProgress >= 62.82
+ORDER BY AverageProgress DESC, faculty.firstname, faculty.lastname;
+
