@@ -1,8 +1,12 @@
+2
+
 SELECT department.name, COUNT(course.deptid) AS '# of courses'
 FROM course LEFT JOIN department ON course.deptid = department.id
 GROUP BY name
 HAVING COUNT(course.deptid)
 ORDER BY COUNT(course.deptid);
+
+3
 
 SELECT course.name, COUNT(studentcourse.courseid) AS '# of students'
 FROM course LEFT JOIN studentcourse ON studentcourse.courseid = course.id
@@ -10,9 +14,13 @@ GROUP BY name
 HAVING COUNT(studentcourse.courseid) 
 ORDER BY COUNT(studentcourse.courseid) desc, course.name;
 
+4
+
 SELECT course.name
 FROM   course LEFT JOIN facultycourse ON facultycourse.courseid = course.id
 WHERE  facultyid IS NULL
+
+5
 
 SELECT course.name, COUNT(studentcourse.courseid) AS '# of students' 
 FROM course 
@@ -23,15 +31,21 @@ GROUP BY name
 HAVING COUNT(studentcourse.courseid) 
 ORDER BY COUNT(studentcourse.courseid) desc, course.name;
 
+6
+
 select COUNT(distinct studentid) AS Students, EXTRACT(YEAR FROM startdate) AS Year 
 FROM studentcourse
 GROUP BY EXTRACT(YEAR FROM startdate);
+
+7
 
 SELECT studentcourse.startdate AS 'StartDate', COUNT(DISTINCT studentcourse.studentid) AS 'Total Number of Students'
 FROM studentcourse
 WHERE MONTH(studentcourse.startdate) = 8
 GROUP BY StartDate
 ORDER BY StartDate, 'Total Number of Students';
+
+8
 
 SELECT student.firstname, student.lastname, COUNT(studentcourse.courseid) AS 'courses'
 FROM studentcourse
@@ -41,6 +55,8 @@ WHERE course.deptid = student.majorid
 GROUP BY student.firstname, student.lastname
 ORDER BY courses DESC, student.firstname, student.lastname;
 
+9
+
 SELECT student.firstname AS 'FirstName', student.lastname AS 'LastName', ROUND(AVG(studentcourse.progress),1) as 
 'AverageProgress'
 FROM student LEFT outer JOIN studentcourse ON studentcourse.studentid = student.id
@@ -48,17 +64,23 @@ GROUP BY student.lastname, student.firstname
 HAVING AVG(studentcourse.progress) < 50
 ORDER BY AverageProgress desc, FirstName, LastName;
 
+10
+
 Select course.name, ROUND(AVG(studentcourse.progress),1) as 
 'AverageProgress'
 from course left join studentcourse ON studentcourse.courseid = course.id
 group by course.name
-Order by AverageProgress DESC, course.name; 69.8
+Order by AverageProgress DESC, course.name;
+
+11
 
 Select course.name AS 'Name', ROUND(AVG(studentcourse.progress),1) as 'AverageProgress'
 from course left join studentcourse ON studentcourse.courseid = course.id
 Group BY Name
 Order by AverageProgress desc
 LIMIT 1;
+
+12
 
 select faculty.firstname, faculty.lastname, ROUND(AVG(studentcourse.progress),1) as 'AverageProgress'
 from faculty 
@@ -67,6 +89,8 @@ left join studentcourse ON studentcourse.courseid = facultycourse.courseid
 Group by firstname
 Order by AverageProgress desc, firstname, lastname;
 
+13
+
 SELECT faculty.firstname, faculty.lastname, ROUND(AVG(studentcourse.progress),1) AS 'AverageProgress'
 FROM faculty
 LEFT JOIN facultycourse ON facultycourse.facultyid = faculty.id
@@ -74,6 +98,8 @@ LEFT JOIN studentcourse ON studentcourse.courseid = facultycourse.courseid
 GROUP BY faculty.firstname, faculty.lastname
 HAVING AverageProgress >= 62.82
 ORDER BY AverageProgress DESC, faculty.firstname, faculty.lastname;
+
+14
 
 SELECT student.firstname, student.lastname, (CASE
 WHEN MIN(progress)<40 THEN 'F'
