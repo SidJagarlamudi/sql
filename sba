@@ -40,3 +40,10 @@ LEFT JOIN course ON course.id = studentcourse.courseid
 WHERE course.deptid = student.majorid
 GROUP BY student.firstname, student.lastname
 ORDER BY courses DESC, student.firstname, student.lastname;
+
+SELECT student.firstname AS 'FirstName', student.lastname AS 'LastName', ROUND(AVG(studentcourse.progress),1) as 
+'AverageProgress'
+FROM student LEFT outer JOIN studentcourse ON studentcourse.studentid = student.id
+GROUP BY student.lastname, student.firstname
+HAVING AVG(studentcourse.progress) < 50
+ORDER BY AverageProgress desc, FirstName, LastName;
