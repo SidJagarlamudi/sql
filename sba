@@ -9,3 +9,7 @@ FROM course LEFT JOIN studentcourse ON studentcourse.courseid = course.id
 GROUP BY name
 HAVING COUNT(studentcourse.courseid) 
 ORDER BY COUNT(studentcourse.courseid) desc, course.name;
+
+SELECT course.name
+FROM   course LEFT JOIN facultycourse ON facultycourse.courseid = course.id
+WHERE  facultyid IS NULL
