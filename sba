@@ -1,0 +1,6 @@
+SELECT department.name, COUNT(course.deptid) AS '# of courses'
+FROM course LEFT JOIN department ON course.deptid = department.id
+GROUP BY name
+HAVING COUNT(course.deptid)
+ORDER BY COUNT(course.deptid);
+
