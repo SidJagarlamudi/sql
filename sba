@@ -32,3 +32,11 @@ FROM studentcourse
 WHERE MONTH(studentcourse.startdate) = 8
 GROUP BY StartDate
 ORDER BY StartDate, 'Total Number of Students';
+
+SELECT student.firstname, student.lastname, COUNT(studentcourse.courseid) AS 'courses'
+FROM studentcourse
+RIGHT JOIN student ON student.id = studentcourse.studentid
+LEFT JOIN course ON course.id = studentcourse.courseid
+WHERE course.deptid = student.majorid
+GROUP BY student.firstname, student.lastname
+ORDER BY courses DESC, student.firstname, student.lastname;
